@@ -47,7 +47,10 @@ def proto_args(parser, parents):
     mapping_enum_group.add_argument("--local-groups", nargs="?", const="", metavar="GROUP", help="enumerate local groups, if a group is specified then its members are enumerated")
     mapping_enum_group.add_argument("--pass-pol", action="store_true", help="dump password policy")
     mapping_enum_group.add_argument("--rid-brute", nargs="?", type=int, const=4000, metavar="MAX_RID", help="enumerate users by bruteforcing RIDs")
-    
+    mapping_enum_group.add_argument("--qwinsta", action="store_true", help="Enumerate RDP connections")
+    mapping_enum_group.add_argument("--tasklist", action="store_true", help="Enumerate running processes")
+
+
     wmi_group = smb_parser.add_argument_group("WMI", "Options for WMI Queries")
     wmi_group.add_argument("--wmi", metavar="QUERY", type=str, help="issues the specified WMI query")
     wmi_group.add_argument("--wmi-namespace", metavar="NAMESPACE", default="root\\cimv2", help="WMI Namespace")
@@ -59,6 +62,7 @@ def proto_args(parser, parents):
     spidering_group.add_argument("--exclude-dirs", type=str, metavar="DIR_LIST", default="", help="directories to exclude from spidering")
     spidering_group.add_argument("--depth", type=int, help="max spider recursion depth")
     spidering_group.add_argument("--only-files", action="store_true", help="only spider files")
+    spidering_group.add_argument("--no-print-results", action="store_true", help="Do not print found files/directories", default=False)
     segroup = spidering_group.add_mutually_exclusive_group()
     segroup.add_argument("--pattern", nargs="+", help="pattern(s) to search for in folders, filenames and file content")
     segroup.add_argument("--regex", nargs="+", help="regex(s) to search for in folders, filenames and file content")
